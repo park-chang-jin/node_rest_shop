@@ -9,8 +9,23 @@ router.get('/', (req, res) => {
         .find()
         .exec()
         .then(docs => {
-            console.log(docs);
-            res.status(200).json(docs);
+            const response = {
+                count: docs.length,
+                products: docs.map(doc => {
+                    return{
+                        name: doc.name,
+                        price: doc.price,
+                        _id: doc._id,
+                        request: {
+                            type: "GET",
+                            url: "http://localhost:3000/products/" + doc._id
+                        }
+                    };
+                })
+            };
+            res.status(200).json(response);
+            // console.log(docs);
+            // res.status(200).json(docs);
         })
         .catch(err => {
             console.log(err);
@@ -22,12 +37,6 @@ router.get('/', (req, res) => {
     //     msg: '데이터 불러옴 성공!!'
     // });
 });
-
-
-
-
-
-
 
 
 // 데이터 생성
@@ -45,7 +54,15 @@ router.post('/', (req, res) => {
             console.log(result);
             res.status(200).json({
                 msg: "data 저장 생성 성공!!",
-                createdProduct: result
+                createdProduct: {
+                    name: result.name,
+                    price: result.price,
+                    _id: result._id,
+                    request: {
+                        type: 'GET',
+                        url: "http://localhost:3000/products/" + result._id
+                    }
+                }
             });
         })
         .catch(err => {
@@ -76,7 +93,13 @@ router.patch('/:productId', (req, res) => {
         .update({_id: id}, { $set: updateOps })
         .exec()
         .then(result => {
-            res.status(200).json(result);
+            res.status(200).json({
+                mes: "Product updated",
+                request: {
+                    type: "GET",
+                    url: "http://localhost:3000/products/" + id
+                }
+            });
         })
         .catch(err => {
             console.log(err);
@@ -97,7 +120,15 @@ router.delete('/:productId', (req,res) => {
         .remove({_id: id})
         .exec()
         .then(result => {
-            res.status(200).json(result);
+            res.status(200).json({
+                msg: "Product deleted",
+                request: {
+                    type: "POST",
+                    url: "http://localhost:3000/products",
+                    body: { name: "String", price: "String"}
+                    
+                }
+            });
         })
         .catch(err => {
             console.log(err);
@@ -120,7 +151,13 @@ router.get('/:productId', (req,res) => {
         .then(doc => {
             console.log("From database", doc);
             if (doc) {
-                res.status(200).json(doc);
+                res.status(200).json({
+                    product: doc,
+                    request: {
+                        type: "GET",
+                        url: "http://localhost:3000/products"
+                    }
+                });
             } else {
                 res.status(404).json({
                     msg: "관련 제품이 없음"
