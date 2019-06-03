@@ -1,0 +1,19 @@
+{
+  "name": "node_rest_shop",
+  "version": "1.0.0",
+  "description": "node_rest_shop",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/park-chang-jin/node_rest_shop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/park-chang-jin/node_rest_shop/issues"
+  },
+  "homepage": "https://github.com/park-chang-jin/node_rest_shop#readme"
+}
