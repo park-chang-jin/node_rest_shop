@@ -4,6 +4,8 @@ const app = express();
 
 const morgan = require('morgan');
 
+const bodyParser = require("body-parser");
+
 // app.use((req, res) => {
 //     res.status(200).json({
 //         message: 'It'
@@ -14,6 +16,8 @@ const productRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
 
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/products', productRoutes);
 app.use('/orders', ordersRoutes);

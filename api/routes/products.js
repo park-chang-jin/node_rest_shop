@@ -10,8 +10,15 @@ router.get('/', (req, res) => {
 
 // 데이터 생성
 router.post('/', (req, res) => {
+
+    const product = {
+        name: req.body.name,
+        price: req.body.price
+    };
+
     res.status(200).json({
-        msg: '데이터 생성 성공!!'
+        msg: '데이터 생성 성공!!',
+        createdProduct: product
     });
 });
 
