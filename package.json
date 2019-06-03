@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/park-chang-jin/node_rest_shop/issues"
   },
-  "homepage": "https://github.com/park-chang-jin/node_rest_shop#readme"
+  "homepage": "https://github.com/park-chang-jin/node_rest_shop#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
