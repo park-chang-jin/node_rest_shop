@@ -97,6 +97,22 @@ router.post('/login', (req, res) => {
 
 // 회원탈퇴
 router.delete('/:userId', (req, res) => {
+    
+    const id = req.params.userId;
+    userModel
+        .remove({ _id: id })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                msg: "delete successful!!"
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
 
 });
 
