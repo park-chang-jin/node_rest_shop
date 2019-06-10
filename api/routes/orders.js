@@ -3,9 +3,21 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const orderModel = require("../models/orders");
 const productModel = require("../models/product");
+const checkAuth = require("../middleware/check-auth");
+
+
+
+
+
+
+
+
+
+
+
 
 // 데이터 불러오기
-router.get('/', (req, res) => {
+router.get('/', checkAuth, (req, res) => {
     // res.status(200).json({
     //     msg: 'order data 데이터 불러옴!!'
     // });
@@ -42,7 +54,8 @@ router.get('/', (req, res) => {
 
 });
 
-router.post('/', (req, res) => {
+
+router.post('/', checkAuth, (req, res) => {
     // res.status(200).json({
     //     msg: 'order data 데이터 생성!!'
     // });
@@ -92,7 +105,7 @@ router.patch('/', (req, res) => {
     });
 });
 
-router.delete('/:orderId', (req, res) => {
+router.delete('/:orderId', checkAuth, (req, res) => {
     // res.status(200).json({
     //     msg: 'order data 데이터 삭제!!'
     // });
@@ -119,7 +132,7 @@ router.delete('/:orderId', (req, res) => {
 });
 
 // 상세데이터 불러오기
-router.get("/:orderId", (req, res) => {
+router.get("/:orderId", checkAuth, (req, res) => {
 
     const id = req.params.orderId;
     orderModel

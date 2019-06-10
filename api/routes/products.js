@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require("mongoose");
 const productModel = require("../models/product");
+const checkAuth = require("../middleware/check-auth");
 
 // 데이타 불러오기
 router.get('/', (req, res) => {
@@ -40,7 +41,7 @@ router.get('/', (req, res) => {
 
 
 // 데이터 생성
-router.post('/', (req, res) => {
+router.post('/', checkAuth, (req, res) => {
 
     const product = new productModel ({
         _id: new mongoose.Types.ObjectId(),
@@ -80,7 +81,7 @@ router.post('/', (req, res) => {
 });
 
 // 데이터 수정
-router.patch('/:productId', (req, res) => {
+router.patch('/:productId', checkAuth, (req, res) => {
     
     const id = req.params.productId;
     const updateOps = {};
@@ -113,7 +114,7 @@ router.patch('/:productId', (req, res) => {
 });
 
 // 데이터 삭제
-router.delete('/:productId', (req,res) => {
+router.delete('/:productId', checkAuth, (req,res) => {
 
     const id = req.params.productId;
     productModel
@@ -142,7 +143,7 @@ router.delete('/:productId', (req,res) => {
 });
 
 // 상세데이터 불러오기
-router.get('/:productId', (req,res) => {
+router.get('/:productId', checkAuth, (req,res) => {
 
     const id = req.params.productId;
     productModel
